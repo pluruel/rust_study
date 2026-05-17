@@ -15,12 +15,36 @@ pub fn eat_at_restaurant() {
 
     // Relative path: based on the current module
     front_of_house::hosting::add_to_waitlist();
+    let mut meal = back_of_house::Breakfast::summer("Rye");
+    // 먹고 싶은 빵 바꾸기
+    meal.toast = String::from("Wheat");
+    // meal.seasonal_fruit # This can not be accessed
+    println!("I'd like {} toast please", meal.toast);
 }
 fn deliver_order() {
     println!("order!!!")
 }
 
 pub mod back_of_house {
+
+    pub enum Appetizer {
+        // enum cannot expose element only all
+        Soup,
+        Salad,
+    }
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+    }
     pub fn fix_incorrect_order() {
         cook_order();
         super::deliver_order();
