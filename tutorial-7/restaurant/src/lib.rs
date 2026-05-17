@@ -1,12 +1,18 @@
+// Root of the library crate (crate::)
+// Built as a separate crate from main.rs, producing librestaurant.rlib
+
 fn deliver_order2() {
     println!("ORDERER")
 }
-mod front_of_house; // if use like this, no need to bind it
+
+// `mod X;` registers a node in the module tree and links X.rs or X/mod.rs
+// Declared once, accessible anywhere in the same crate via crate::X::...
+mod front_of_house;
 
 pub fn eat_at_restaurant() {
-    // 절대 경로
+    // Absolute path: starts from the crate root
     crate::front_of_house::hosting::add_to_waitlist();
 
-    // 상대 경로
+    // Relative path: based on the current module
     front_of_house::hosting::add_to_waitlist();
 }
